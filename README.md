@@ -116,6 +116,27 @@ Config and MCP servers are read only at startup. **Fully quit and reopen opencod
 
 After restart, the model edits via `filetools_replaceFileContent`: line-range scoped, CRLF-safe, no more `Could not find oldString`. The server resolves relative paths against the project directory opencode launches it in.
 
+## Recommended agent rules
+
+The tools are robust on their own, but a couple of habits make the model use them
+flawlessly. Copy these into your agent's instructions — for opencode, your **global**
+`AGENTS.md` (`~/.config/opencode/AGENTS.md`), not a file inside this repo (a repo-local
+`AGENTS.md` would only apply while editing this repo):
+
+```markdown
+- Edit files ONLY via `filetools_replaceFileContent` (and `filetools_viewFile` to read a
+  range). If the built-in `edit`/`grep`/`glob` are disabled, don't call them — search file
+  contents through the shell instead.
+- Ground truth before every edit: immediately before `filetools_replaceFileContent`, call
+  `filetools_viewFile` on the exact range — even if you read the file earlier. Context-saving
+  ("don't re-read unchanged files") does NOT apply to editing; editing from memory causes
+  "Could not find oldString" and line drift.
+- Copy `targetContent` byte-for-byte from the `filetools_viewFile` output; never type it from
+  memory. Set `startLine`/`endLine` to that range.
+- On a mismatch the tool returns the real current content of the range — fix from that, don't
+  guess.
+```
+
 ## Use it with other MCP clients (e.g. Claude Desktop)
 
 ```jsonc
