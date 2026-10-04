@@ -1,0 +1,44 @@
+{
+  "name": "filetools-mcp",
+  "version": "1.0.0",
+  "description": "Robust file-editing tools for AI agents over MCP: line-range + CRLF-safe + literal replace, fixing 'Could not find oldString' failures. Works with opencode, Claude Desktop, and any MCP client.",
+  "type": "module",
+  "main": "fileTools.ts",
+  "bin": {
+    "filetools-mcp": "mcp-server.mjs"
+  },
+  "scripts": {
+    "start": "node mcp-server.mjs",
+    "test": "node --test fileTools.test.ts",
+    "demo": "node demo.ts",
+    "smoke": "node mcp-test.mjs"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "opencode",
+    "ai-agent",
+    "llm-tools",
+    "file-editing",
+    "code-editing",
+    "crlf",
+    "oldstring",
+    "gemini",
+    "claude"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/testAccountDeltas/fileTools.git"
+  },
+  "bugs": {
+    "url": "https://github.com/testAccountDeltas/fileTools/issues"
+  },
+  "homepage": "https://github.com/testAccountDeltas/fileTools#readme",
+  "engines": {
+    "node": ">=23"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.0"
+  }
+}
